@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  resourcify
   rolify :role_cname => 'Client'
   rolify :role_cname => 'Manager'
   # Include default devise modules. Others available are:
