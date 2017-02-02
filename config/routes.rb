@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+  root to: 'pages#welcome'
+
   resources :users, shallow: true do
     resources :rooms
     resources :bookings
