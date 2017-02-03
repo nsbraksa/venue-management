@@ -10,7 +10,7 @@ class Ability
 
     if user.has_role? :manager
       can :manage, :rooms, user_id: user.id
-      can :manage, :bookings, user_id: user.id
+      can :read, :bookings, rooms: { user_id: user.id }
     elsif user.has_role? :client
       can :crud, :bookings, user_id: user.id
       can :read, :rooms
