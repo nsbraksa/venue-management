@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   root to: 'pages#welcome'
 
   resources :users, shallow: true do
-    resources :rooms
+    resources :rooms do
+      member do
+        post 'availability'
+      end
+    end
+
     resources :bookings
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
