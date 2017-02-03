@@ -29,7 +29,7 @@
                     <% end %>
                   </li>
                   <li>
-                    <% if user_signed_in? && current_user.client? %>
+                    <% if user_signed_in? %>
                       <%= link_to 'My bookings', user_bookings_path(current_user) %>
                     <% end %>
                   </li>
