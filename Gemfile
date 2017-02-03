@@ -33,8 +33,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 # my gems #
+gem 'bootstrap-sass'
+gem 'bourbon'
 gem 'cancancan'
 gem 'devise'
+gem 'high_voltage'
 gem 'rolify'
 gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 

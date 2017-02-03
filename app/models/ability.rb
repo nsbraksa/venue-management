@@ -5,11 +5,14 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     user ||= User.new # guest user (not logged in)
+
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     if user.has_role? :manager
       can :manage, :rooms, user_id: user.id
       can :manage, :bookings, user_id: user.id
     elsif user.has_role? :client
-      can :manage, :bookings, user_id: user.id
+      can :crud, :bookings, user_id: user.id
       can :read, :rooms
     end
     #
