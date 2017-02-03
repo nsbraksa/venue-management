@@ -9,8 +9,8 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     if user.has_role? :manager
-      can :manage, :rooms, user_id: user.id
-      can :read, :bookings, rooms: { user_id: user.id }
+      can :crud, :rooms, user_id: user.id
+      can :crud, :bookings, rooms: { user_id: user.id }
     elsif user.has_role? :client
       can :crud, :bookings, user_id: user.id
       can :read, :rooms
