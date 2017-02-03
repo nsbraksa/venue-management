@@ -1,4 +1,4 @@
-<%= form_for [user, user.rooms.build], html: { class: "authform" } do |f| %>
+<%= form_for [user, room], html: { class: "authform" } do |f| %>
   <% if room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.room.errors.count, "error") %> prohibited this room from being saved:</h2>

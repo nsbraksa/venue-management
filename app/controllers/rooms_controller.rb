@@ -15,11 +15,14 @@ class RoomsController < ApplicationController
 
   # GET /rooms/new
   def new
-    @room = Room.new
+    @user = current_user
+    @room = @user.rooms.new
   end
 
   # GET /rooms/1/edit
   def edit
+    @user = current_user
+    @room = Room.find(params[:id])
   end
 
   # POST /rooms
@@ -30,7 +33,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to user_room_url(@room), notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -44,7 +47,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        format.html { redirect_to user_room_url(@room), notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit }
@@ -65,9 +68,7 @@ class RoomsController < ApplicationController
 
   def availability
     room = Room.find(params[:id])
-    start_date = Chronic.parse(params[:start])
-    end_date = Chronic.parse(params[:end])
-    room.check_availability(start_date, end_date)
+    room.check_availability(params[:start], params[:end])
   end
 
   private

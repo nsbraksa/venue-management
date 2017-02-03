@@ -4,7 +4,7 @@
 
 <h3>Check availability:</h3>
 
-<%= form_tag availability_room_url, method: 'post', url: {action: "availability"}, html: {class: "authform"} do %>
+<%= form_tag availability_user_room_url, method: 'post', url: {action: "availability"}, html: {class: "authform"} do %>
   <div class="field">
     <%= label_tag :start %>
     <%= datetime_field_tag :start %>
@@ -19,5 +19,5 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_room_path(current_user) %> |
+<%= link_to 'Edit', edit_user_room_path(current_user, @room) %> |
 <%= link_to 'Back', user_rooms_path(current_user) %>

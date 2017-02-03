@@ -9,6 +9,8 @@ class Room < ApplicationRecord
   end
 
   def check_availability(start_date, end_date)
+    start_date = ::Chronic.parse(start_date)
+    end_date = ::Chronic.parse(end_date)
     availability = (start_date..end_date)
     # bookings.each do |b|
     # end
