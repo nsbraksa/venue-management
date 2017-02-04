@@ -7,11 +7,12 @@ Rails.application.routes.draw do
       member do
         post 'availability'
       end
-
     end
   end
 
   resources :rooms do
     resources :bookings, except: [:show, :edit, :update, :destroy]
   end
+
+  resources :bookings, only: [:show]
 end
