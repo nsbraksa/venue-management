@@ -13,12 +13,14 @@
 
   <div class="field">
     <%= f.label :start %>
-    <%= f.datetime_select :start_date %>
+    <%= f.datetime_select :start_date,
+        start_year: Date.current.year, end_year: Date.current.year %>
   </div>
 
   <div class="field">
     <%= f.label :end %>
-    <%= f.datetime_select :end_date %>
+    <%= f.datetime_select :end_date,
+        start_year: Date.current.year, end_year: Date.current.year %>
   </div>
 
   <div class="actions">
