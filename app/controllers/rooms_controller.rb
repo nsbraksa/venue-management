@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :availability]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :availability]
 
   # GET /rooms
   # GET /rooms.json
@@ -66,8 +66,17 @@ class RoomsController < ApplicationController
   end
 
   def availability
-    room = Room.find(params[:id])
-    room.check_availability(params[:start], params[:end])
+    start_param = params[:start_check]
+    start_date = Time.utc(start_param['year'], start_param['month'], start_param['day'], start_param['hour'], start_param['minute'])
+    end_param = params[:end_check]
+    end_date = Time.utc(end_param['year'], end_param['month'], end_param['day'], end_param['hour'], end_param['minute'])
+    if @room.available(start_date, end_date)
+      redirect_to user_room_url(current_user, @room), notice: 'Room available'
+      # render text: "available, #{params[:start_check].to_unsafe_h}"
+    else
+      redirect_to user_room_url(current_user, @room), alert: 'Room not available'
+      # render text: 'not available'
+    end
   end
 
   private

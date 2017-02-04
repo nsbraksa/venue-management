@@ -6,16 +6,16 @@
 
 <%= form_tag availability_user_room_url, method: 'post', url: {action: "availability"}, html: {class: "authform"} do %>
   <div class="field">
-    <%= label_tag :start %>
-    <%= datetime_field_tag :start %>
+    <%= label_tag :start_date %>
+    <%= select_datetime DateTime.current, prefix: :start_check %>
   </div>
 
   <div class="field">
-    <%= label_tag :end %>
-    <%= datetime_field_tag :end %>
+    <%= label_tag :end_date %>
+    <%= select_datetime DateTime.current, prefix: :end_check %>
   </div>
 
-  <%= submit_tag "Check" %>
+  <%= submit_tag "Check avalability" %>
 <% end %>
 
 
