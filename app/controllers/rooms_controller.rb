@@ -72,10 +72,8 @@ class RoomsController < ApplicationController
     end_date = Time.utc(end_param['year'], end_param['month'], end_param['day'], end_param['hour'], end_param['minute'])
     if @room.available(start_date, end_date)
       redirect_to user_room_url(current_user, @room), notice: 'Room available'
-      # render text: "available, #{params[:start_check].to_unsafe_h}"
     else
       redirect_to user_room_url(current_user, @room), alert: 'Room not available'
-      # render text: 'not available'
     end
   end
 
