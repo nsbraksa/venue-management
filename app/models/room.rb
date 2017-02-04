@@ -1,5 +1,4 @@
 class Room < ApplicationRecord
-  enum status: { free: 0, booked: 1}
   has_many :bookings
   belongs_to :user
 
@@ -8,11 +7,8 @@ class Room < ApplicationRecord
     User.find(id).name
   end
 
-  def check_availability(start_date, end_date)
-    start_date = ::Chronic.parse(start_date)
-    end_date = ::Chronic.parse(end_date)
-    availability = (start_date..end_date)
-    # bookings.each do |b|
-    # end
+  def available(start_date, end_date)
+    bookings = self.bookings.where('(start_date < ? AND ? < end_date) or (start_date < ? AND ? < end_date) or (start_date > ? AND end_date < ?)', start_date, start_date, end_date, end_date, start_date, end_date)
+    bookings.count.zero?
   end
 end

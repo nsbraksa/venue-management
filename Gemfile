@@ -34,14 +34,15 @@ gem 'jbuilder', '~> 2.5'
 
 # my gems #
 gem 'bootstrap-sass'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'bourbon'
 gem 'cancancan'
 gem 'chronic'
 gem 'devise'
 gem 'high_voltage'
+gem 'momentjs-rails', '>= 2.9.0'
 gem 'rolify'
-gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
-
+# gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -52,8 +53,8 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
