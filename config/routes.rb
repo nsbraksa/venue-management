@@ -14,5 +14,5 @@ Rails.application.routes.draw do
     resources :bookings, except: [:show, :edit, :update, :destroy]
   end
 
-  resources :bookings, only: [:show]
+  resources :bookings, only: [:show, :destroy]
 end
