@@ -1,24 +1,17 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Start:</strong>
-  <%= @booking.start %>
+  <%= @booking.start_date %>
 </p>
 
 <p>
   <strong>End:</strong>
-  <%= @booking.end %>
+  <%= @booking.end_date %>
 </p>
 
 <p>
   <strong>Room:</strong>
-  <%= @booking.room_id %>
+  <%= @booking.room_name %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @booking.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+<%= link_to 'Destroy', @booking, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', room_bookings_path(@room) %>
