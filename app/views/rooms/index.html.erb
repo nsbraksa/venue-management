@@ -1,13 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Rooms</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Status</th>
-      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,12 +11,12 @@
   <tbody>
     <% @rooms.each do |room| %>
       <tr>
-        <td><%= room.name %></td>
-        <td><%= room.status %></td>
-        <td><%= room.user_id %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if room.user_id == current_user.id %>
+          <td><%= room.name %></td>
+          <td><%= link_to 'Show', user_room_url(current_user, room) %></td>
+          <td><%= link_to 'Edit', edit_user_room_path(current_user, room) %></td>
+          <td><%= link_to 'Destroy', user_room_path(current_user, room), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Room', new_room_path %>
+<%= link_to 'New Room', new_user_room_path(current_user) %>

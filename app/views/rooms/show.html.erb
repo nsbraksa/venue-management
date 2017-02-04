@@ -1,19 +1,24 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Name:</strong>
-  <%= @room.name %>
+  <h3>Name: <%= @room.name %></h3>
 </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @room.status %>
-</p>
+<h3>Check availability:</h3>
 
-<p>
-  <strong>User:</strong>
-  <%= @room.user_id %>
-</p>
+<%= form_tag availability_user_room_url, method: 'post', url: {action: "availability"}, html: {class: "authform"} do %>
+  <div class="field">
+    <%= label_tag :start_date %>
+    <%= select_datetime DateTime.current, prefix: :start_check %>
+  </div>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+  <div class="field">
+    <%= label_tag :end_date %>
+    <%= select_datetime DateTime.current, prefix: :end_check %>
+  </div>
+
+  <%= submit_tag "Check avalability" %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_user_room_path(current_user, @room) %> |
+<%= link_to 'Room bookings', room_bookings_path(@room) %> |
+<%= link_to 'Back', user_rooms_path(current_user) %>

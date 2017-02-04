@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
-  resources :users, shallow: true do
-    resources :rooms
-    resources :bookings
+  devise_for :users
+  root to: 'pages#welcome'
+
+  resources :users do
+    resources :rooms do
+      member do
+        post 'availability'
+      end
+    end
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :rooms do
+    resources :bookings, except: [:show, :edit, :update, :destroy]
+  end
+
+  resources :bookings, only: [:show, :destroy]
 end

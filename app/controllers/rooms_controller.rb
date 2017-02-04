@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :availability]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :availability]
 
   # GET /rooms
   # GET /rooms.json
@@ -9,26 +10,29 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1
   # GET /rooms/1.json
-  def show
-  end
+  def show; end
 
   # GET /rooms/new
   def new
-    @room = Room.new
+    @user = current_user
+    @room = @user.rooms.new
   end
 
   # GET /rooms/1/edit
   def edit
+    @user = current_user
+    @room = Room.find(params[:id])
   end
 
   # POST /rooms
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
+    @room.user_id = current_user.id
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to user_room_url(current_user, @room), notice: 'Room was successfully created.' }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        format.html { redirect_to user_room_url(current_user, @room), notice: 'Room was successfully updated.' }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit }
@@ -56,19 +60,32 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+      format.html { redirect_to user_rooms_url(current_user), notice: 'Room was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.find(params[:id])
+  def availability
+    start_param = params[:start_check]
+    start_date = Time.utc(start_param['year'], start_param['month'], start_param['day'], start_param['hour'], start_param['minute'])
+    end_param = params[:end_check]
+    end_date = Time.utc(end_param['year'], end_param['month'], end_param['day'], end_param['hour'], end_param['minute'])
+    if @room.available(start_date, end_date)
+      redirect_to user_room_url(current_user, @room), notice: 'Room available'
+    else
+      redirect_to user_room_url(current_user, @room), alert: 'Room not available'
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def room_params
-      params.require(:room).permit(:name, :status, :user_id)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_room
+    @room = Room.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def room_params
+    params.require(:room).permit(:name, :status, :user_id)
+  end
 end

@@ -1,4 +1,14 @@
 class Room < ApplicationRecord
   has_many :bookings
   belongs_to :user
+
+  def owner
+    id = user_id
+    User.find(id).name
+  end
+
+  def available(start_date, end_date)
+    bookings = self.bookings.where('(start_date < ? AND ? < end_date) or (start_date < ? AND ? < end_date) or (start_date > ? AND end_date < ?)', start_date, start_date, end_date, end_date, start_date, end_date)
+    bookings.count.zero?
+  end
 end
