@@ -8,8 +8,10 @@ Rails.application.routes.draw do
         post 'availability'
       end
 
-      resources :bookings, only: [:new, :create]
     end
-    resources :bookings, only: [:index]
+  end
+
+  resources :rooms do
+    resources :bookings, except: [:show, :edit, :update, :destroy]
   end
 end
