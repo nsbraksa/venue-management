@@ -1,9 +1,8 @@
-<h1>Home Page!</h1>
+<h1>Welcome</h1>
 <!-- <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
 <% if user_signed_in? %>
-  <h3>Welcome <strong><%= current_user.name %></strong></h3>
   <p>
-    Start by checking your rooms:
+    Start by checking your rooms: <br> <br>
      <%= link_to "My Rooms", user_rooms_path(current_user), class: "btn btn-default" %>
   </p>
   <br>

@@ -22,7 +22,9 @@
   </tbody>
 </table>
 <br>
-<h3>Check availability of your rooms:</h3>
+<%= link_to 'New Room', new_user_room_path(current_user), class: "btn btn-success" %>
+<br>
+<h1>Availability:</h1>
 
 <%= form_tag rooms_availability_user_rooms_url, method: 'post', url: {action: "rooms_availability"}, html: {class: "authform"} do %>
   <div class="field">
@@ -35,8 +37,6 @@
     <%= select_datetime DateTime.current, prefix: :end_check %>
   </div>
 
-  <%= submit_tag "Check avalability" %>
+  <%= submit_tag "Check availability", class: "btn btn-success" %>
 <% end %>
 <br><br>
-
-<%= link_to 'New Room', new_user_room_path(current_user) %>
