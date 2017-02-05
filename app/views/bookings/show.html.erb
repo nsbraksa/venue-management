@@ -14,4 +14,4 @@
 </p>
 
 <%= link_to 'Destroy', @booking, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', room_bookings_path(@room) %>
+<%= link_to 'Back', user_room_url(current_user, @room) %>

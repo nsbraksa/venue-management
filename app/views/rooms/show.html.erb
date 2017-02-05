@@ -1,6 +1,34 @@
 <p>
-  <h3>Name: <%= @room.name %></h3>
+  <h2><%= @room.name %></h2>
 </p>
+<h3>Bookings:</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start date</th>
+      <th>End date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @room.bookings.all.each do |booking| %>
+      <tr>
+        <td><%= booking.start_date %></td>
+        <td><%= booking.end_date %></td>
+        <td><%= link_to 'Show', booking_path(booking) %></td>
+        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Booking', new_room_booking_path(@room) %>
+
+<br><br>
 
 <h3>Check availability:</h3>
 
@@ -17,8 +45,8 @@
 
   <%= submit_tag "Check avalability" %>
 <% end %>
-
+<br><br>
 
 <%= link_to 'Edit', edit_user_room_path(current_user, @room) %> |
-<%= link_to 'Room bookings', room_bookings_path(@room) %> |
+<%= link_to 'Destroy', @room, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', user_rooms_path(current_user) %>
