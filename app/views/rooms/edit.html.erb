@@ -2,5 +2,5 @@
 
 <%= render 'form', user: current_user, room: @room %>
 
-<%= link_to 'Show', user_room_path(@room) %> |
-<%= link_to 'Back', user_rooms_path(current_user) %>
+<%= link_to 'Show', user_room_path(@room), class: "btn btn-success" %> |
+<%= link_to 'Back', user_rooms_path(current_user), class: "btn btn-success" %>
