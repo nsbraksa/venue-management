@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: bookings
+#
+#  id         :integer          not null, primary key
+#  start_date :datetime
+#  end_date   :datetime
+#  room_id    :integer
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class BookingsControllerTest < ActionDispatch::IntegrationTest

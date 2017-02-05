@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 # my gems #
+gem 'annotate', git: 'https://github.com/ctran/annotate_models.git' 
 gem 'bootstrap-sass'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'bourbon'
