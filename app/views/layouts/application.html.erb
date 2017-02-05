@@ -14,22 +14,6 @@
     </header>
     <main role="main">
       <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-            <br>
-            <li class="sidebar-brand">
-              <%= link_to 'Manager Dashboard', root_path, class: 'navbar-brand' %>
-            </li>
-            <li>
-              <% if user_signed_in? && current_user.manager? %>
-                <%= link_to 'My Rooms', user_rooms_path(current_user) %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
         <!-- Page Content -->
         <div id="page-content-wrapper">
           <div class="container-fluid">
@@ -47,14 +31,6 @@
         <!-- /#page-content-wrapper -->
       </div>
       <!-- /#wrapper -->
-
-      <!-- Menu Toggle Script -->
-      <script>
-      $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-      });
-      </script>
     </main>
   </body>
 </html>

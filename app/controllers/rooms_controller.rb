@@ -76,15 +76,12 @@ class RoomsController < ApplicationController
 
   def rooms_availability
     rooms = current_user.rooms
-    available_rooms = []
+    @available_rooms = []
     rooms.each do |room|
-      available_rooms << room.name if room.available(@start_check, @end_check)
+      @available_rooms << room if room.available(@start_check, @end_check)
     end
-    if available_rooms.empty?
-      redirect_to user_rooms_url(current_user, @room), alert: 'No room is available'
-    else
-      redirect_to user_rooms_url(current_user, @room), notice: "#{available_rooms} Room available"
-    end
+    @rooms = Room.all
+    render 'index'
   end
 
   private
@@ -96,7 +93,7 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(:name, :status, :user_id)
+    params.require(:room).permit(:name, :user_id)
   end
 
   def datify(start_param = params[:start_check], end_param= params[:end_check])
