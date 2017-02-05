@@ -80,8 +80,12 @@ class RoomsController < ApplicationController
       rooms.each do |room|
         @available_rooms << room if room.available(@start_check, @end_check)
       end
-      @rooms = Room.all
-      render 'index'
+      if @available_rooms
+        @rooms = Room.all
+        render 'index'
+      else
+        render 'index', alert: 'No room is available'
+      end
     end
 
   private
