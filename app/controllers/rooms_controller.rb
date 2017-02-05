@@ -75,17 +75,14 @@ class RoomsController < ApplicationController
   end
 
   def rooms_availability
-    rooms = current_user.rooms
-    available_rooms = []
-    rooms.each do |room|
-      available_rooms << room.name if room.available(@start_check, @end_check)
+      rooms = current_user.rooms
+      @available_rooms = []
+      rooms.each do |room|
+        @available_rooms << room if room.available(@start_check, @end_check)
+      end
+      @rooms = Room.all
+      render 'index'
     end
-    if available_rooms.empty?
-      redirect_to user_rooms_url(current_user, @room), alert: 'No room is available'
-    else
-      redirect_to user_rooms_url(current_user, @room), notice: "#{available_rooms} Room available"
-    end
-  end
 
   private
 
