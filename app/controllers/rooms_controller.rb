@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :availability]
-  before_action :set_room, only: [:show, :edit, :update, :destroy, :availability]
-
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :room_availability]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :room_availability]
+  before_action :datify, only: [:room_availability, :rooms_availability]
   # GET /rooms
   # GET /rooms.json
   def index
@@ -66,15 +66,24 @@ class RoomsController < ApplicationController
     end
   end
 
-  def availability
-    start_param = params[:start_check]
-    start_date = Time.utc(start_param['year'], start_param['month'], start_param['day'], start_param['hour'], start_param['minute'])
-    end_param = params[:end_check]
-    end_date = Time.utc(end_param['year'], end_param['month'], end_param['day'], end_param['hour'], end_param['minute'])
-    if @room.available(start_date, end_date)
+  def room_availability
+    if @room.available(@start_check, @end_check)
       redirect_to user_room_url(current_user, @room), notice: 'Room available'
     else
       redirect_to user_room_url(current_user, @room), alert: 'Room not available'
+    end
+  end
+
+  def rooms_availability
+    rooms = current_user.rooms
+    available_rooms = []
+    rooms.each do |room|
+      available_rooms << room.name if room.available(@start_check, @end_check)
+    end
+    if available_rooms.empty?
+      redirect_to user_rooms_url(current_user, @room), alert: 'No room is available'
+    else
+      redirect_to user_rooms_url(current_user, @room), notice: "#{available_rooms} Room available"
     end
   end
 
@@ -88,5 +97,10 @@ class RoomsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
     params.require(:room).permit(:name, :status, :user_id)
+  end
+
+  def datify(start_param = params[:start_check], end_param= params[:end_check])
+    @start_check = Time.utc(start_param['year'], start_param['month'], start_param['day'], start_param['hour'], start_param['minute'])
+    @end_check = Time.utc(end_param['year'], end_param['month'], end_param['day'], end_param['hour'], end_param['minute'])
   end
 end

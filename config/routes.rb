@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :users do
     resources :rooms do
       member do
-        post 'availability'
+        post 'room_availability'
+      end
+
+      collection do
+        post 'rooms_availability'
       end
     end
   end

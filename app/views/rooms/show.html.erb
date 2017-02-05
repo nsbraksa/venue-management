@@ -30,9 +30,9 @@
 
 <br><br>
 
-<h3>Check availability:</h3>
+<h3>Check availability of <%= @room.name %>:</h3>
 
-<%= form_tag availability_user_room_url, method: 'post', url: {action: "availability"}, html: {class: "authform"} do %>
+<%= form_tag room_availability_user_room_url(current_user, @room), method: 'post', url: {action: "room_availability"}, html: {class: "authform"} do %>
   <div class="field">
     <%= label_tag :start_date %>
     <%= select_datetime DateTime.current, prefix: :start_check %>

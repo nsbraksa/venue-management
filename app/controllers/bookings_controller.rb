@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to room_bookings_url(@room), notice: 'Booking was successfully created.' }
+        format.html { redirect_to user_room_url(current_user, @room), notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class BookingsController < ApplicationController
   def update
     respond_to do |format|
       if @booking.update(booking_params)
-        format.html { redirect_to room_bookings_url(@room), notice: 'Booking was successfully updated.' }
+        format.html { redirect_to user_room_url(current_user, @room), notice: 'Booking was successfully updated.' }
         format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class BookingsController < ApplicationController
     @room = Room.find(@booking.room_id)
     @booking.destroy
     respond_to do |format|
-      format.html { redirect_to room_bookings_url(@room), notice: 'Booking was successfully destroyed.' }
+      format.html { redirect_to user_room_url(current_user, @room), notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
