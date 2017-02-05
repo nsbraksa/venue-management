@@ -4,7 +4,7 @@
   <h3>Welcome <strong><%= current_user.name %></strong></h3>
   <p>
     Start by checking your rooms:
-     <%= button_to "My Rooms", user_rooms_path(current_user), class: "btn btn-default" %>
+     <%= link_to "My Rooms", user_rooms_path(current_user), class: "btn btn-default" %>
   </p>
   <br>
   <div>

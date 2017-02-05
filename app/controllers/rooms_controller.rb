@@ -96,7 +96,7 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(:name, :status, :user_id)
+    params.require(:room).permit(:name, :user_id)
   end
 
   def datify(start_param = params[:start_check], end_param= params[:end_check])
