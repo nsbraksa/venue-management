@@ -58,6 +58,7 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
+    @room.bookings.destroy_all
     @room.destroy
     respond_to do |format|
       format.html { redirect_to user_rooms_url(current_user), notice: 'Room was successfully destroyed.' }

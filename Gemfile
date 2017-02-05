@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 # my gems #
-gem 'annotate', git: 'https://github.com/ctran/annotate_models.git' 
+gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
 gem 'bootstrap-sass'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'bourbon'
@@ -55,6 +55,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
+  gem 'pry-rails'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
