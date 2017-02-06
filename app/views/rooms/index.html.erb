@@ -1,30 +1,4 @@
-<h1>Rooms</h1>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @rooms.each do |room| %>
-      <tr>
-        <% if room.user_id == current_user.id %>
-          <td><%= room.name %></td>
-          <td><%= link_to 'Show', user_room_url(current_user, room) %></td>
-          <td><%= link_to 'Edit', edit_user_room_path(current_user, room) %></td>
-          <td><%= link_to 'Destroy', user_room_path(current_user, room), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= link_to 'New Room', new_user_room_path(current_user), class: "btn btn-success" %>
-<br>
-<h1>Availability:</h1>
+<h2>Check available rooms:</h2>
 
 <%= form_tag rooms_availability_user_rooms_url, method: 'post', url: {action: "rooms_availability"}, html: {class: "authform"} do %>
   <div class="field">
@@ -67,4 +41,34 @@
       </tbody>
   </table>
   <% end %>
+<% else %>
+<br>
+<br>
+<h2>Rooms</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+        <% if room.user_id == current_user.id %>
+          <td><%= room.name %></td>
+          <td><%= link_to 'Show', user_room_url(current_user, room) %></td>
+          <td><%= link_to 'Edit', edit_user_room_path(current_user, room) %></td>
+          <td><%= link_to 'Destroy', user_room_path(current_user, room), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Room', new_user_room_path(current_user), class: "btn btn-success" %>
+<br>
+
 <% end %>
