@@ -13,21 +13,39 @@
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
-      <!-- <div id="wrapper"> -->
-      <div class="col-xs-10 col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1 centered">
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <div class="container-fluid">
-            <br>
-            <div class="row">
-                <div>
-                <%= render 'layouts/messages' %>
-                <%= yield %>
+      <div id="wrapper">
+        <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+              <%= link_to 'Home', root_path %>
+            </li>
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to 'My Rooms', user_rooms_path(current_user) %>
+              </li>
+              <li>
+                <%= link_to 'Availability(soon)', user_rooms_path(current_user) %>
+              </li>
+            <% end %>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+        <div class="col-xs-10 col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1 centered">
+          <!-- Page Content -->
+          <div id="page-content-wrapper">
+            <div class="container-fluid">
+              <br>
+              <div class="row">
+                  <div>
+                  <%= render 'layouts/messages' %>
+                  <%= yield %>
+                </div>
               </div>
             </div>
           </div>
+          <!-- /#page-content-wrapper -->
         </div>
-        <!-- /#page-content-wrapper -->
       </div>
       <!-- /#wrapper -->
     </main>
