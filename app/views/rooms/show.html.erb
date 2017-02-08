@@ -1,28 +1,39 @@
 <p>
   <h2><%= @room.name %></h2>
 </p>
-<h3>Bookings:</h3>
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>Bookings:</h4></div>
+    <% if @room.bookings.empty? %>
+      <p>
+        No bookings for this room, try making one.
+      </p>
+    <% else %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Start date</th>
-      <th>End date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @room.bookings.all.each do |booking| %>
-      <tr>
-        <td><%= booking.start_date %></td>
-        <td><%= booking.end_date %></td>
-        <td><%= link_to 'Show', booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tbody>
+          <% id = 0 %>
+          <% @room.bookings.all.each do |booking| %>
+            <tr>
+              <% id = id + 1 %>
+              <td><%= id %></td>
+              <td><%= booking.start_date %></td>
+              <td><%= booking.end_date %></td>
+              <td><%= link_to 'Show', booking_path(booking) %></td>
+              <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
 <br>
 

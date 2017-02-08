@@ -4,3 +4,9 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.navbar-outer  {
+  position: fixed;
+  top: 0px;
+  width: 500px;
+}
