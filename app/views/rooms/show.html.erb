@@ -1,6 +1,22 @@
-<p>
-  <h2><%= @room.name %></h2>
-</p>
+<h3>Check availability of <%= @room.name %>:</h3>
+
+<%= form_tag room_availability_user_room_url(current_user, @room), method: 'post', url: {action: "room_availability"}, html: {class: "authform"} do %>
+  <div class="field">
+    <%= label_tag :start_date %>
+    <%= select_datetime DateTime.current, prefix: :start_check %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :end_date %>
+    <%= select_datetime DateTime.current, prefix: :end_check %>
+  </div>
+
+  <%= submit_tag "Check avalability", class: "btn btn-success" %>
+<% end %>
+
+<br><br>
+
+<h3>Room: <%= @room.name %></h3>
 <div class="panel panel-default">
   <div class="panel-heading"><h4>Bookings:</h4></div>
     <% if @room.bookings.empty? %>
@@ -35,27 +51,10 @@
     <% end %>
   </div>
 
-<br>
 
 <%= link_to 'New Booking', new_room_booking_path(@room), class: "btn btn-success" %>
 
 <br><br>
-
-<h3>Check availability of <%= @room.name %>:</h3>
-
-<%= form_tag room_availability_user_room_url(current_user, @room), method: 'post', url: {action: "room_availability"}, html: {class: "authform"} do %>
-  <div class="field">
-    <%= label_tag :start_date %>
-    <%= select_datetime DateTime.current, prefix: :start_check %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :end_date %>
-    <%= select_datetime DateTime.current, prefix: :end_check %>
-  </div>
-
-  <%= submit_tag "Check avalability", class: "btn btn-success" %>
-<% end %>
 <br><br>
 
 <%= link_to 'Edit', edit_user_room_path(current_user, @room), class: "btn btn-success" %> |
