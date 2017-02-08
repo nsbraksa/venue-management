@@ -72,7 +72,7 @@ class RoomsController < ApplicationController
 
   def room_availability
     if @start_check > @end_check
-      redirect_to user_room_url(current_user, @room), alert: "Start_date must be before End_date."
+      redirect_to user_room_url(current_user, @room), alert: "Start date must be before End date."
     else
       if @room.available(@start_check, @end_check)
         redirect_to user_room_url(current_user, @room), notice: 'Room available'
@@ -84,7 +84,7 @@ class RoomsController < ApplicationController
 
   def rooms_availability
     if @start_check > @end_check
-      redirect_to user_room_url(current_user, @room), alert: "Start_date must be before End_date."
+      redirect_to user_rooms_url(current_user), alert: "Start date must be before End date."
     else
       rooms = current_user.rooms
       @available_rooms = []
