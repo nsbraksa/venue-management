@@ -72,7 +72,6 @@ class RoomsController < ApplicationController
 
   def room_availability
     if @start_check > @end_check
-      @room.errors.add(:start_check, 'must be before end_date.')
       redirect_to user_room_url(current_user, @room), alert: "Start_date must be before End_date."
     else
       if @room.available(@start_check, @end_check)
@@ -84,13 +83,17 @@ class RoomsController < ApplicationController
   end
 
   def rooms_availability
-    rooms = current_user.rooms
-    @available_rooms = []
-    rooms.each do |room|
-      @available_rooms << room if room.available(@start_check, @end_check)
+    if @start_check > @end_check
+      redirect_to user_room_url(current_user, @room), alert: "Start_date must be before End_date."
+    else
+      rooms = current_user.rooms
+      @available_rooms = []
+      rooms.each do |room|
+        @available_rooms << room if room.available(@start_check, @end_check)
+      end
+      @rooms = Room.all
+      render 'index'
     end
-    @rooms = Room.all
-    render 'index'
   end
 
   private
