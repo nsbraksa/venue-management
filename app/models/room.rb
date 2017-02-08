@@ -12,9 +12,6 @@
 class Room < ApplicationRecord
   validates :name, presence: true
 
-  validate :dates_in_order,
-           :check_start_time
-
   has_many :bookings
   belongs_to :user
 
@@ -28,11 +25,7 @@ class Room < ApplicationRecord
     bookings.count.zero?
   end
 
-  def dates_in_order
-    errors.add(:start_date, 'must be before end_date.') unless start_date < end_date
-  end
-
-  def check_start_time
-    errors.add(:start_date, 'must be after current time.') unless start_date > Time.current
+  def self.dates_in_order(start_date, end_date)
+    errors.add(:start_check, 'must be before end_date.') unless start_date < end_date
   end
 end

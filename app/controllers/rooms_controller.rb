@@ -1,7 +1,11 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :room_availability]
+  before_action :authenticate_user!, only: [:new, :edit, :create,
+                                            :update, :destroy,
+                                            :room_availability,
+                                            :rooms_availability]
   before_action :set_room, only: [:show, :edit, :update, :destroy, :room_availability]
   before_action :datify, only: [:room_availability, :rooms_availability]
+
   # GET /rooms
   # GET /rooms.json
   def index
@@ -67,10 +71,15 @@ class RoomsController < ApplicationController
   end
 
   def room_availability
-    if @room.available(@start_check, @end_check)
-      redirect_to user_room_url(current_user, @room), notice: 'Room available'
+    if @start_check > @end_check
+      @room.errors.add(:start_check, 'must be before end_date.')
+      redirect_to user_room_url(current_user, @room), alert: "Start_date must be before End_date."
     else
-      redirect_to user_room_url(current_user, @room), alert: 'Room not available'
+      if @room.available(@start_check, @end_check)
+        redirect_to user_room_url(current_user, @room), notice: 'Room available'
+      else
+        redirect_to user_room_url(current_user, @room), alert: 'Room not available'
+      end
     end
   end
 
